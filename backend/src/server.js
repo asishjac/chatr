@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import {connectDB} from "./lib/db.js";
@@ -11,6 +12,7 @@ const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json()); // use middleware to parse JSON request bodies
+app.use(cookieParser()); // use middleware to parse cookies
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
