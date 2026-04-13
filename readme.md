@@ -14,7 +14,8 @@ Chatr is a professional-grade, borderless messaging application built with a sca
     - **Helmet & Rate Limiting**: Global protection against XSS and DoS attacks.
     - **Strict Validation**: All API inputs are rigorously checked with **Zod Schemas**.
     - **Identity Protection**: JWT-based authentication with secure `httpOnly` cookies.
-- **Real-time Messaging**: Hybrid WebSocket support using **Socket.io** (Local) and **AWS API Gateway WebSockets** (Production).
+- **AI Image Moderation**: Fully integrated **AWS Rekognition** to perform real-time safety scans on all uploaded images, ensuring a safe community environment.
+- **Messaging**: Send and receive high-performance messages with a unified vertical stream layout.
 - **Pro-Active Monitoring**: Native `/health` orchestration endpoint and startup environment validation.
 
 ---
@@ -78,6 +79,11 @@ This command spins up:
 
 ---
 
-## 📜 Development Status
+## 📜 Development Status & Roadmap
 
-✅ **Production Ready**: The core architecture and security hardening are complete. Next phases include advanced AI moderation and CI/CD automation.
+✅ **Hardening & AWS Migration (Complete)**: The core architecture, security hardening, and AWS migration are finished.
+
+🚀 **Next Phases (Planned)**:
+- **Phase 5**: **Real-time Group Chat** — Transition from 1-on-1 to multi-user rooms with typing indicators.
+- **Phase 6**: **End-to-End Encryption (E2EE)** — Implementing Signal-protocol style privacy for all messages.
+- **Phase 7**: **Voice & Video Support** — Native WebRTC integration for direct audio/video calling.
