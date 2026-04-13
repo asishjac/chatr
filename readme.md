@@ -9,20 +9,20 @@ Chatr is a professional-grade, borderless messaging application built with a sca
 ## ✨ Key Features
 
 - **Premium UI/UX**: Minimalist, borderless light-theme design with high-contrast shadows, sticky selection states, and fluid micro-animations.
-- **AWS-Native Architecture**: Fully migrated from legacy DBs to **DynamoDB** (Data), **S3** (Storage), and **SES** (Identity/Email).
+- **AWS-Native Architecture**: Built natively on **DynamoDB** (Data), **S3** (Storage), and **SES** (Identity/Email).
 - **Hardened Security**:
     - **Helmet & Rate Limiting**: Global protection against XSS and DoS attacks.
     - **Strict Validation**: All API inputs are rigorously checked with **Zod Schemas**.
     - **Identity Protection**: JWT-based authentication with secure `httpOnly` cookies.
 - **AI Image Moderation**: Fully integrated **AWS Rekognition** to perform real-time safety scans on all uploaded images, ensuring a safe community environment.
-- **Messaging**: Send and receive high-performance messages with a unified vertical stream layout.
+- **Messaging**: Send and receive high-performance messages with a classic asymmetric chat layout.
 - **Pro-Active Monitoring**: Native `/health` orchestration endpoint and startup environment validation.
 
 ---
 
 ## 🏗️ Architecture Detail
 
-Chatr follows a clean **Repository Pattern** to ensure service logic is decoupled from cloud infrastructure:
+Chatr follows a clean **Repository Pattern** to ensure the service logic remains infrastructure-agnostic:
 - **Compute**: Node.js / Express
 - **Persistence**: Amazon DynamoDB
 - **Blob Storage**: Amazon S3
@@ -81,7 +81,7 @@ This command spins up:
 
 ## 📜 Development Status & Roadmap
 
-✅ **Hardening & AWS Migration (Complete)**: The core architecture, security hardening, and AWS migration are finished.
+✅ **Architecture & Hardening (Complete)**: The core AWS-native architecture and security hardening are finished.
 
 🚀 **Next Phases (Planned)**:
 - **Phase 5**: **Real-time Group Chat** — Transition from 1-on-1 to multi-user rooms with typing indicators.
