@@ -16,6 +16,7 @@ Chatr is a professional-grade, borderless messaging application built with a sca
     - **Identity Protection**: JWT-based authentication with secure `httpOnly` cookies.
 - **AI Image Moderation**: Fully integrated **AWS Rekognition** to perform real-time safety scans on all uploaded images, ensuring a safe community environment.
 - **Messaging**: Send and receive high-performance messages with a classic asymmetric chat layout.
+- **Smart Reverse Proxy**: High-performance **Nginx** configuration that handles SSL termination, sub-domain routing (`api.chatr.local`), and WebSocket proxying.
 - **Pro-Active Monitoring**: Native `/health` orchestration endpoint and startup environment validation.
 
 ---
@@ -26,6 +27,7 @@ Chatr follows a clean **Repository Pattern** to ensure the service logic remains
 - **Compute**: Node.js / Express
 - **Persistence**: Amazon DynamoDB
 - **Blob Storage**: Amazon S3
+- **Reverse Proxy**: Nginx (SSL & WebSocket routing)
 - **Dev-Ops**: LocalStack (for local development) & Terraform (for production infrastructure).
 
 ---
