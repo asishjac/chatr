@@ -1,35 +1,83 @@
-# Chatr App
+# Chatr: Premium AWS-Native Messaging Experience
 
-Chatr App is a messaging application that allows users to send and receive messages, manage contacts, and update their profiles. It is built with Node.js, Express, MongoDB, and integrates with Cloudinary for image uploads.
+Chatr is a professional-grade, borderless messaging application built with a scalable AWS-native architecture and a premium Light Theme aesthetic. It focuses on high performance, rigorous security, and a seamless user experience.
 
----
-
-## Features
-
-- **User Authentication**: Signup, login, and logout functionality with JWT-based authentication.
-- **Messaging**: Send and receive messages between users.
-- **Profile Management**: Update profile pictures using Cloudinary.
-- **Contact Management**: Fetch and manage user contacts.
-- **Welcome Email**: Sends a welcome email to users upon successful signup.
-- **Secure**: Passwords are hashed using bcrypt, and sensitive routes are protected with middleware.
+![Chatr Hero](screenshots/hero.png)
 
 ---
 
-## Tech Stack
+## ✨ Key Features
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Mongoose ODM)
-- **Authentication**: JSON Web Tokens (JWT)
-- **File Uploads**: Cloudinary
-- **Email Service**: Resend API
-- **Environment Variables**: Managed with `dotenv`
+- **Premium UI/UX**: Minimalist, borderless light-theme design with high-contrast shadows, sticky selection states, and fluid micro-animations.
+- **AWS-Native Architecture**: Fully migrated from legacy DBs to **DynamoDB** (Data), **S3** (Storage), and **SES** (Identity/Email).
+- **Hardened Security**:
+    - **Helmet & Rate Limiting**: Global protection against XSS and DoS attacks.
+    - **Strict Validation**: All API inputs are rigorously checked with **Zod Schemas**.
+    - **Identity Protection**: JWT-based authentication with secure `httpOnly` cookies.
+- **Real-time Messaging**: Hybrid WebSocket support using **Socket.io** (Local) and **AWS API Gateway WebSockets** (Production).
+- **Pro-Active Monitoring**: Native `/health` orchestration endpoint and startup environment validation.
+
+---
+
+## 🏗️ Architecture Detail
+
+Chatr follows a clean **Repository Pattern** to ensure service logic is decoupled from cloud infrastructure:
+- **Compute**: Node.js / Express
+- **Persistence**: Amazon DynamoDB
+- **Blob Storage**: Amazon S3
+- **Dev-Ops**: LocalStack (for local development) & Terraform (for production infrastructure).
 
 ---
 
+## 🚀 How to Run (Local Development)
+
+### Prerequisites
+- [Docker & Docker Compose](https://www.docker.com/products/docker-desktop/)
+- Node.js v18+ (optional, for local linting)
+
+### 1. Snapshot the Environment
+Create your `.env` file in the `backend` directory:
+```env
+PORT=3000
+NODE_ENV=development
+JWT_SECRET=your_super_secret_key
+AWS_REGION=us-east-1
+CLIENT_URL=https://chatr.local
+```
+
+### 2. Launch with Docker Compose
+The fastest way to get started is using the pre-configured Docker stack:
+```bash
+docker-compose up --build
+```
+This command spins up:
+- **LocalStack**: Emulating S3, DynamoDB, and API Gateway.
+- **Backend**: Hardened Node.js server.
+- **Frontend**: Vite-powered React application.
+- **Nginx Proxy**: Mapping services to `chatr.local` and `api.chatr.local`.
+
+### 3. Verification
+- **App**: Access [https://chatr.local](https://chatr.local)
+- **API Health**: [https://api.chatr.local/health](https://api.chatr.local/health)
+
 ---
 
-## Development Status
+## 📸 Screenshots
 
-🚧 **This project is currently under development.** Some features may be incomplete or subject to change.
+| Login Experience | Messaging Input |
+| :---: | :---: |
+| ![Login](screenshots/login.png) | ![Input](screenshots/input.png) |
 
 ---
+
+## 🛠️ Tech Stack
+
+**Frontend**: React, Vite, Lucide Icons, Zustand (State), Axios.
+**Backend**: Node.js, Express, Zod (Validation), Helmet, Bcrypt, Socket.io.
+**Infra**: Docker, LocalStack, Terraform, Nginx.
+
+---
+
+## 📜 Development Status
+
+✅ **Production Ready**: The core architecture and security hardening are complete. Next phases include advanced AI moderation and CI/CD automation.
