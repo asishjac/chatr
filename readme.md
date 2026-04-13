@@ -1,4 +1,4 @@
-# Chatr: Premium AWS-Native Messaging Experience
+# Chatr: Node.js & AWS-Native Messaging System
 
 Chatr is a professional-grade, borderless messaging application built with a scalable AWS-native architecture and a premium Light Theme aesthetic. It focuses on high performance, rigorous security, and a seamless user experience.
 
