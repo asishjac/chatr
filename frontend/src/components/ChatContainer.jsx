@@ -53,7 +53,9 @@ const ChatContainer = () => {
           return (
             <div
               key={message.messageId}
-              className="flex items-end gap-3 justify-start flex-row"
+              className={`flex w-full items-end gap-3 ${
+                isSentByMe ? "flex-row-reverse justify-start" : "flex-row justify-start"
+              }`}
               ref={messageEndRef}
             >
               {/* Message Avatar */}
@@ -69,20 +71,22 @@ const ChatContainer = () => {
                 />
               </div>
 
-              <div className="flex flex-col gap-1 max-w-[80%] items-start">
+              <div className={`flex flex-col gap-1 max-w-[80%] ${
+                isSentByMe ? "items-end" : "items-start"
+              }`}>
                 <div
                   className={`relative px-4 py-2.5 shadow-sm transition-all ${
                     isSentByMe
-                      ? "bg-primary text-white rounded-2xl rounded-bl-none"
+                      ? "bg-primary text-white rounded-2xl rounded-br-none"
                       : "bg-white text-text-main rounded-2xl rounded-bl-none border border-bg-dark/5 shadow-sm"
                   }`}
                 >
-                  {/* Unified Left-Pointing Tail for "stream" look */}
-                  <div className={`absolute bottom-0 size-3 -left-1 ${
+                  {/* Tail: Conditional Left vs Right */}
+                  <div className={`absolute bottom-0 size-3 ${
                     isSentByMe 
-                      ? "bg-primary" 
-                      : "bg-white border-l border-b border-bg-dark/5"
-                  } [clip-path:polygon(100%_0,100%_100%,0_100%)]`} />
+                      ? "bg-primary -right-1 [clip-path:polygon(0_0,0_100%,100%_100%)]" 
+                      : "bg-white -left-1 border-l border-b border-bg-dark/5 [clip-path:polygon(100%_0,100%_100%,0_100%)]"
+                  }`} />
 
                   {message.image && (
                     <img
@@ -97,7 +101,9 @@ const ChatContainer = () => {
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 px-1">
+                <div className={`flex items-center gap-1.5 px-1 ${
+                  isSentByMe ? "flex-row-reverse" : "flex-row"
+                }`}>
                   <span className="text-[9px] text-text-muted font-bold tracking-wider">
                     {formatMessageTime(message.timestamp)}
                   </span>

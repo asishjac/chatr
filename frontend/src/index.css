@@ -224,6 +224,7 @@ input:checked + .toggle-slider:before {
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .flex-row { flex-direction: row; }
+.flex-row-reverse { flex-direction: row-reverse; }
 .items-center { align-items: center; }
 .items-start { align-items: flex-start; }
 .items-end { align-items: flex-end; }
