@@ -1,26 +1,27 @@
 services:
   localstack:
-    image: localstack/localstack:latest
+    image: localstack/localstack:2.3.2
     container_name: chatr-localstack
     ports:
       - "127.0.0.1:4566:4566"            # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559"  # external services port range
     environment:
-      - SERVICES=s3,dynamodb,ses,rekognition,apigatewayv2
+      - SERVICES=s3,dynamodb,ses,apigatewayv2
       - DEBUG=1
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./localstack_data}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./scripts/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # Auto-initialize resources
+      - "./infra/shared:/tmp/shared" # Shared volume for API IDs
+    networks:
+      - chatr-network
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: chatr-backend
-    ports:
-      - "3000:3000"
     environment:
       - NODE_ENV=development
       - PORT=3000
@@ -33,17 +34,45 @@ services:
       - DYNAMODB_TABLE_CONNECTIONS=Connections
       - S3_BUCKET_UPLOADS=chatr-uploads
       - JWT_SECRET=my_jwt_secret_key
+      - CLIENT_URL=https://chatr.local
     depends_on:
       - localstack
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - chatr-network
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: chatr-frontend
-    ports:
-      - "5173:5173"
     environment:
-      - VITE_API_URL=http://localhost:3000
+      - VITE_API_URL=https://api.chatr.local
+      - VITE_WS_URL=wss://ws.chatr.local
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
+    networks:
+      - chatr-network
+
+  proxy:
+    build:
+      context: ./infra/nginx
+      dockerfile: Dockerfile
+    container_name: chatr-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - chatr-network
+
+networks:
+  chatr-network:
+    driver: bridge
